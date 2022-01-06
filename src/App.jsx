@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 
 function App() {
@@ -11,16 +11,27 @@ function App() {
     5: 'FRI',
     6: 'SAT',
   };
-  const hoy = new Date();
-  const hoyDia = hoy.getDay();
-  const hoyFecha = hoy.getDate();
-
+  const setValue = (e, value) => {
+    e.innerHTML = value;
+  };
+  useEffect(() => {
+    const keys = document.querySelectorAll('div .day-of-week');
+    keys.forEach((key, index) => {
+      setValue(key, daysOfWeekMap[(new Date().getDay() + index) % 7]);
+    });
+  }, []);
+  useEffect(() => {
+    const keys = document.querySelectorAll('div .date');
+    keys.forEach((key, index) => {
+      setValue(key, (new Date(new Date().setDate(new Date().getDate() + index))).getDate());
+    });
+  }, []);
   return (
-    <div className="App">
+    <>
       <div className="wrapper">
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[hoyDia % 7]}</div>
-          <div className="date">{hoyFecha}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar cloudy">
             <div className="weather">
               <svg role="img">
@@ -53,8 +64,8 @@ function App() {
           </div>
         </div>
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[(hoyDia + 1) % 7]}</div>
-          <div className="date">{(new Date(new Date().setDate(new Date().getDate() + 1))).getDate()}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar sunny">
             <div className="weather">
               <svg role="img" width={208} height={213} viewBox="0 0 208 213">
@@ -82,8 +93,8 @@ function App() {
           </div>
         </div>
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[(hoyDia + 2) % 7]}</div>
-          <div className="date">{(new Date(new Date().setDate(new Date().getDate() + 2))).getDate()}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar stormy">
             <div className="weather">
               <svg role="img" width={246} height={187} viewBox="0 0 246 187">
@@ -111,8 +122,8 @@ function App() {
           </div>
         </div>
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[(hoyDia + 3) % 7]}</div>
-          <div className="date">{(new Date(new Date().setDate(new Date().getDate() + 3))).getDate()}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar snowy">
             <div className="weather">
               <svg role="img" width={230} height={196} viewBox="0 0 230 196">
@@ -140,8 +151,8 @@ function App() {
           </div>
         </div>
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[(hoyDia + 4) % 7]}</div>
-          <div className="date">{(new Date(new Date().setDate(new Date().getDate() + 4))).getDate()}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar partly-cloudy">
             <div className="weather">
               <svg role="img" width={230} height={209} viewBox="0 0 230 209">
@@ -169,8 +180,8 @@ function App() {
           </div>
         </div>
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[(hoyDia + 5) % 7]}</div>
-          <div className="date">{(new Date(new Date().setDate(new Date().getDate() + 5))).getDate()}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar rainy">
             <div className="weather">
               <svg role="img" width={160} height={222} viewBox="0 0 160 222">
@@ -198,8 +209,8 @@ function App() {
           </div>
         </div>
         <div className="day">
-          <div className="day-of-week">{daysOfWeekMap[(hoyDia + 6) % 7]}</div>
-          <div className="date">{(new Date(new Date().setDate(new Date().getDate() + 6))).getDate()}</div>
+          <div className="day-of-week" />
+          <div className="date" />
           <div className="bar sunny">
             <div className="weather">
               <svg role="img" width={208} height={213} viewBox="0 0 208 213">
@@ -7013,7 +7024,7 @@ function App() {
           </defs>
         </symbol>
       </svg>
-    </div>
+    </>
   );
 }
 
